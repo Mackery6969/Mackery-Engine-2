@@ -23,7 +23,6 @@ using StringTools;
 typedef DialogueCharacterFile = {
 	var image:String;
 	var dialogue_pos:String;
-	var no_antialiasing:Bool;
 
 	var animations:Array<DialogueAnimArray>;
 	var position:Array<Float>;
@@ -50,7 +49,8 @@ typedef DialogueLine = {
 	var text:Null<String>;
 	var boxState:Null<String>;
 	var speed:Null<Float>;
-	var sound:Null<String>;
+	//var skipdelay:Null<Int>;
+	//var append:Null<Bool>; //thinkin bout having some rpg type text shit.
 }
 
 class DialogueCharacter extends FlxSprite
@@ -81,9 +81,6 @@ class DialogueCharacter extends FlxSprite
 		reloadCharacterJson(character);
 		frames = Paths.getSparrowAtlas('dialogue/' + jsonFile.image);
 		reloadAnimations();
-
-		antialiasing = ClientPrefs.globalAntialiasing;
-		if(jsonFile.no_antialiasing == true) antialiasing = false;
 	}
 
 	public function reloadCharacterJson(character:String) {
@@ -251,6 +248,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 			var char:DialogueCharacter = new DialogueCharacter(x + offsetPos, y, individualChar);
 			char.setGraphicSize(Std.int(char.width * DialogueCharacter.DEFAULT_SCALE * char.jsonFile.scale));
 			char.updateHitbox();
+			char.antialiasing = ClientPrefs.globalAntialiasing;
 			char.scrollFactor.set();
 			char.alpha = 0.00001;
 			add(char);
@@ -494,7 +492,6 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		}
 
 		textToType = curDialogue.text;
-		Alphabet.setDialogueSound(curDialogue.sound);
 		daText = new Alphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, textToType, false, true, curDialogue.speed, 0.7);
 		add(daText);
 

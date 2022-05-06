@@ -38,7 +38,6 @@ class Paths
 		'songs',
 		'music',
 		'sounds',
-		'shaders',
 		'videos',
 		'images',
 		'stages',
@@ -54,12 +53,7 @@ class Paths
 			dumpExclusions.push(key);
 	}
 
-	public static var dumpExclusions:Array<String> =
-	[
-		'assets/music/freakyMenu.$SOUND_EXT',
-		'assets/shared/music/breakfast.$SOUND_EXT',
-		'assets/shared/music/tea-time.$SOUND_EXT',
-	];
+	public static var dumpExclusions:Array<String> = [];
 	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory() {
 		// clear non local assets in the tracked assets list
@@ -101,7 +95,6 @@ class Paths
 		for (key in currentTrackedSounds.keys()) {
 			if (!localTrackedAssets.contains(key) 
 			&& !dumpExclusions.contains(key) && key != null) {
-				//trace('test: ' + dumpExclusions, key);
 				Assets.cache.clear(key);
 				currentTrackedSounds.remove(key);
 			}
@@ -200,7 +193,7 @@ class Paths
 		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
-	static public function sound(key:String, ?library:String):Sound
+	static public function sound(key:String, ?library:String):Dynamic
 	{
 		var sound:Sound = returnSound('sounds', key, library);
 		return sound;
@@ -211,7 +204,7 @@ class Paths
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
-	inline static public function music(key:String, ?library:String):Sound
+	inline static public function music(key:String, ?library:String):Dynamic
 	{
 		var file:Sound = returnSound('music', key, library);
 		return file;
@@ -285,7 +278,7 @@ class Paths
 		}
 		#end
 		
-		if(OpenFlAssets.exists(getPath(key, type))) {
+		if(OpenFlAssets.exists(Paths.getPath(key, type))) {
 			return true;
 		}
 		return false;
@@ -330,28 +323,25 @@ class Paths
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static function returnGraphic(key:String, ?library:String) {
 		#if MODS_ALLOWED
-		var modKey:String = modsImages(key);
-		if(FileSystem.exists(modKey)) {
-			if(!currentTrackedAssets.exists(modKey)) {
-				var newBitmap:BitmapData = BitmapData.fromFile(modKey);
-				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, modKey);
-				newGraphic.persist = true;
-				currentTrackedAssets.set(modKey, newGraphic);
+		if(FileSystem.exists(modsImages(key))) {
+			if(!currentTrackedAssets.exists(key)) {
+				var newBitmap:BitmapData = BitmapData.fromFile(modsImages(key));
+				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, key);
+				currentTrackedAssets.set(key, newGraphic);
+				
 			}
-			localTrackedAssets.push(modKey);
-			return currentTrackedAssets.get(modKey);
+			localTrackedAssets.push(key);
+			return currentTrackedAssets.get(key);
 		}
 		#end
-
 		var path = getPath('images/$key.png', IMAGE, library);
 		if (OpenFlAssets.exists(path, IMAGE)) {
-			if(!currentTrackedAssets.exists(path)) {
-				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
-				newGraphic.persist = true;
-				currentTrackedAssets.set(path, newGraphic);
+			if(!currentTrackedAssets.exists(key)) {
+				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, key);
+				currentTrackedAssets.set(key, newGraphic);
 			}
-			localTrackedAssets.push(path);
-			return currentTrackedAssets.get(path);
+			localTrackedAssets.push(key);
+			return currentTrackedAssets.get(key);
 		}
 		trace('oh no its returning null NOOOO');
 		return null;
@@ -379,7 +369,7 @@ class Paths
 		#else
 			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(getPath('$path/$key.$SOUND_EXT', SOUND, library)));
 		#end
-		localTrackedAssets.push(gottenPath);
+		localTrackedAssets.push(key);
 		return currentTrackedSounds.get(gottenPath);
 	}
 	
@@ -439,11 +429,11 @@ class Paths
 	}
 	static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
-		var modsFolder:String = mods();
+		var modsFolder:String = Paths.mods();
 		if(FileSystem.exists(modsFolder)) {
 			for (folder in FileSystem.readDirectory(modsFolder)) {
 				var path = haxe.io.Path.join([modsFolder, folder]);
-				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder) && !list.contains(folder)) {
+				if (sys.FileSystem.isDirectory(path) && !Paths.ignoreModFolders.contains(folder) && !list.contains(folder)) {
 					list.push(folder);
 				}
 			}
