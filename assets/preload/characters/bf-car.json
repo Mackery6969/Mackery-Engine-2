@@ -187,6 +187,7 @@
 		350
 	],
 	"healthicon": "bf",
+	"winningicon": true,
 	"flip_x": true,
 	"healthbar_colors": [
 		49,
