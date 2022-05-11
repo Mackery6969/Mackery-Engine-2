@@ -65,7 +65,7 @@ class Achievements {
 			GameJoltAPI.getTrophy(162890);
 		}
 		if (name == 'debugger') {
-			GameJoltAPI.getTrophy(162894fs);
+			GameJoltAPI.getTrophy(162894);
 		}
 	}
 
