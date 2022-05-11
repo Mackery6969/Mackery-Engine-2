@@ -682,7 +682,7 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = false;
 					add(bg);
 				}
-			case 'youcheated' //bambi test song - Cheating
+			case 'youcheated': //bambi test song - Cheating
 			{
 				bg = new BGSprite('youcheater', 0, 0, 2, 2);
 				add(bg);
