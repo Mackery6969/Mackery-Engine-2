@@ -682,16 +682,6 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = false;
 					add(bg);
 				}
-			case 'youcheated': //bambi test song - Cheating
-			{
-				var bg:BGSprite = new BGSprite('youCheater', 0, 0, 2, 2);
-				add(bg);
-
-				new Shaders('ThreeDEffect', false);
-				var shaderArray = new Array<BitmapFilter>();
-				shaderArray.push(new ShaderFilter(animatedShaders['ThreeDEffect'].shader));
-				camGame.setFilters(shaderArray);
-			}
 		}
 
 		if(isPixelStage) {
