@@ -14,6 +14,7 @@ import sys.io.File;
 import haxe.Json;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
+import GameJolt.GameJoltAPI;
 
 using StringTools;
 
@@ -60,6 +61,12 @@ class Achievements {
 		FlxG.log.add('Completed achievement "' + name +'"');
 		achievementsMap.set(name, true);
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		if (name == 'week1_nomiss') {
+			GameJoltAPI.getTrophy(162890);
+		}
+		if (name == 'debugger') {
+			GameJoltAPI.getTrophy(162894fs);
+		}
 	}
 
 	public static function isAchievementUnlocked(name:String) {
@@ -115,6 +122,7 @@ class Achievements {
 		// buffoon
 
 		// EDIT 2: Uhh this is weird, this message was written for MInd Games, so it doesn't apply logically for Psych Engine LOL
+		
 	}
 
 	public static function reloadAchievements() {	//Achievements in game are hardcoded, no need to make a folder for them

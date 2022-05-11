@@ -20,6 +20,8 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import GameJolt.GameJoltAPI; //important
+import GameJolt; //important 
 
 using StringTools;
 
@@ -39,6 +41,7 @@ class MainMenuState extends MusicBeatState
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
+		#if desktop 'gamejolt', #end
 		'options'
 	];
 
@@ -49,6 +52,9 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		GameJoltAPI.connect();
+		GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -160,6 +166,9 @@ class MainMenuState extends MusicBeatState
 		add(new AchievementObject('friday_night_play', camAchievement));
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		trace('Giving achievement "friday_night_play"');
+		if (GameJoltLogin.login) {
+			GameJoltAPI.getTrophy(162870);
+		}
 	}
 	#end
 
@@ -241,6 +250,8 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'credits':
 										MusicBeatState.switchState(new CreditsState());
+									case 'gamejolt':
+										MusicBeatState.switchState(new GameJoltLogin());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}

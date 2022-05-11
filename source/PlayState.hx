@@ -417,7 +417,7 @@ class PlayState extends MusicBeatState
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
 				add(stageFront);
-new DynamicShaderHandler('Example', false);
+new DynamicShaderHandler('VCRDistortionEffect', false);
 var shaderArray = new Array<BitmapFilter>();
 shaderArray.push(new ShaderFilter(animatedShaders['Example'].shader));
 camGame.setFilters(shaderArray);
