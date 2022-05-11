@@ -417,6 +417,7 @@ class PlayState extends MusicBeatState
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
 				add(stageFront);
+
 				if(!ClientPrefs.lowQuality) {
 					var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
 					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
@@ -681,6 +682,16 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = false;
 					add(bg);
 				}
+			case 'youcheated' //bambi test song - Cheating
+			{
+				bg = new BGSprite('youcheater', 0, 0, 2, 2);
+				add(bg);
+
+				new DynamicShaderHandler('ThreeDEffect', false);
+				var shaderArray = new Array<BitmapFilter>();
+				shaderArray.push(new ShaderFilter(animatedShaders['ThreeDEffect'].shader));
+				camGame.setFilters(shaderArray);
+			}
 		}
 
 		if(isPixelStage) {
