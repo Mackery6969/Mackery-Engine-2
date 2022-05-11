@@ -684,7 +684,7 @@ class PlayState extends MusicBeatState
 				}
 			case 'youcheated': //bambi test song - Cheating
 			{
-				bg = new BGSprite('youcheater', 0, 0, 2, 2);
+				var bg:BGSprite = new BGSprite('youCheater', 0, 0, 2, 2);
 				add(bg);
 
 				new DynamicShaderHandler('ThreeDEffect', false);
