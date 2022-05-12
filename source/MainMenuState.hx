@@ -50,6 +50,8 @@ class MainMenuState extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 
+	var logger:Bool = false;
+
 	override function create()
 	{
 		GameJoltAPI.connect();

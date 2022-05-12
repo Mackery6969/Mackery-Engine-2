@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import GameJolt.GameJoltAPI;
 
 using StringTools;
 
