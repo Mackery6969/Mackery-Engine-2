@@ -3265,9 +3265,6 @@ for (key => value in luaShaders)
 				var percent:Float = ratingPercent;
 				if(Math.isNaN(percent)) percent = 0;
 				Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent);
-				if (storyDifficulty == 2) {
-					GameJoltAPI.addScore(songScore, 725727, SONG.song);
-				}
 				#end
 			}
 
