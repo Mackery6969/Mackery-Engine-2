@@ -587,7 +587,6 @@ class CharacterEditorState extends MusicBeatState
 		tab_group.add(singDurationStepper);
 		tab_group.add(scaleStepper);
 		tab_group.add(flipXCheckBox);
-		tab_group.add(winningIconCheckBox);
 		tab_group.add(noAntialiasingCheckBox);
 		tab_group.add(positionXStepper);
 		tab_group.add(positionYStepper);
