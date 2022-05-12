@@ -26,7 +26,6 @@ class ClientPrefs {
 	public static var timeBarType:String = 'Time Left';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
-	public static var winningicons = true;
 	public static var healthBarAlpha:Float = 1;
 	public static var controllerMode:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -111,7 +110,6 @@ class ClientPrefs {
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
-		FlxG.save.data.winningicons = winningicons;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
 
@@ -221,9 +219,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.controllerMode != null) {
 			controllerMode = FlxG.save.data.controllerMode;
-		}
-		if(FlxG.save.data.winningicons != null) {
-			winningicons = FlxG.save.data.winningicons;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

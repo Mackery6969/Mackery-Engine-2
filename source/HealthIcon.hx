@@ -11,8 +11,6 @@ class HealthIcon extends FlxSprite
 	private var isOldIcon:Bool = false;
 	private var isPlayer:Bool = false;
 	private var char:String = '';
-	public var dad:Character;
-	public var boyfriend:Boyfriend;
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -46,26 +44,10 @@ class HealthIcon extends FlxSprite
 
 			loadGraphic(file); //Load stupidly first for getting the file size
 			loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); //Then load it fr
-			iconOffsets[0] = (width - 150) / 3;
-			iconOffsets[1] = (width - 150) / 3;
-			if (dad.winningicon == true || boyfriend.winningicon == true) {
-				if (ClientPrefs.winningicons) {
-					iconOffsets[2] = (width - 150) / 3;
-				}
-			}
+			iconOffsets[0] = (width - 150) / 2;
+			iconOffsets[1] = (width - 150) / 2;
 			updateHitbox();
 
-			if (dad.winningicon = true) {
-				if (ClientPrefs.winningicons) {
-					animation.add(char, [0, 1, 2], 0, false, isPlayer);
-				}
-			} else if (boyfriend.winningicon = true) {
-				if (ClientPrefs.winningicons) {
-					animation.add(char, [0, 1, 2], 0, false, isPlayer);
-				}
-			} else {
-				animation.add(char, [0, 1], 0, false, isPlayer);
-			}
 			animation.add(char, [0, 1], 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
