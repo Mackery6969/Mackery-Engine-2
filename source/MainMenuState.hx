@@ -18,6 +18,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
 import Achievements;
+import WeekData; //for secret song
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import GameJolt.GameJoltAPI; //important
@@ -28,6 +29,7 @@ using StringTools;
 class MainMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.5.1'; //This is also used for Discord RPC
+	public static var mackeryEngineVersion:String = '0.2.0'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -141,6 +143,10 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Mackery Engine v" + mackeryEngineVersion, 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -178,6 +184,13 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		//fix GameJolt menu bug
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;

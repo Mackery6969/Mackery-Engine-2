@@ -92,6 +92,11 @@ import openfl.Lib;
 import flixel.FlxG;
 import openfl.display.Sprite;
 
+//stuff for discord rpc
+#if desktop
+import Discord.DiscordClient;
+#end
+
 using StringTools;
 
 class GameJoltAPI // Connects to tentools.api.FlxGameJolt
@@ -404,6 +409,11 @@ class GameJoltLogin extends MusicBeatSubstate
     // static var trophyCheck:Bool = false;
     override function create()
     {
+        #if desktop
+        // Updating Discord Rich Presence
+        DiscordClient.changePresence("Logging into GameJolt", null);
+        #end
+
         if (FlxG.save.data.lbToggle != null)
             {
                 GameJoltAPI.leaderboardToggle = FlxG.save.data.lbToggle;
