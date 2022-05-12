@@ -184,12 +184,6 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		//fix GameJolt menu bug
-		if(FlxG.sound.music == null) {
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-
-			FlxG.sound.music.fadeIn(4, 0, 0.7);
-		}
 
 		if (FlxG.sound.music.volume < 0.8)
 		{
