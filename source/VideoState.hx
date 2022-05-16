@@ -65,10 +65,6 @@ class VideoState extends MusicBeatState
 
 		filePath = "assets/videos/" + fileName + ".webm";
 		transClass = toTrans;
-		if (frameSkipLimit != -1 && GlobalVideo.isWebm)
-		{
-			GlobalVideo.getWebm().webm.SKIP_STEP_LIMIT = frameSkipLimit;
-		}
 
 		if (skip)
 		{
